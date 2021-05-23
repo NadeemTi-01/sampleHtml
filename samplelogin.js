@@ -24,7 +24,7 @@ function ValidateSecretKey(){
                 wrongKeyCounter = wrongKeyCounter;
                 document.getElementById('wrongKeyCount').style.display = 'none';
                 document.getElementById('secretKeyinput').style.display = 'none';
-                document.getElementById('secretKeyinput').style.display = 'none';
+                document.getElementById('clickHereText').style.display = 'none';
 	}
 	else
 	{
