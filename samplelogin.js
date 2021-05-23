@@ -21,6 +21,8 @@ function ValidateSecretKey(){
 	if (secret == SecretKey) {
 		document.getElementById('isKeyValid').style.display = 'none';
 		document.getElementById('ShowSecretKey').style.display = 'block';
+                wrongKeyCounter = wrongKeyCounter;
+                document.getElementById('wrongKeyCount').style.display = 'none';
 	}
 	else
 	{
