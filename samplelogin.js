@@ -23,6 +23,7 @@ function ValidateSecretKey(){
 		document.getElementById('ShowSecretKey').style.display = 'block';
                 wrongKeyCounter = wrongKeyCounter;
                 document.getElementById('wrongKeyCount').style.display = 'none';
+                document.getElementById('secretKeyinput').style.display = 'none';
 	}
 	else
 	{
