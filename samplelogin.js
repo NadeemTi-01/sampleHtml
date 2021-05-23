@@ -54,7 +54,7 @@ function Login(){
 			var userPass = document.getElementById('Passwordtxt').value;
 
 			if (userId == Id && userPass == pass) {
-				alert("Successfully Logged In");
+				location.href = "sampleMain.html";
 			}
 			else{
 				alert("Id or Password not correct! Try again");
