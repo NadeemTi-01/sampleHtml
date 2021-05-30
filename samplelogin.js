@@ -64,3 +64,8 @@ function Login(){
 				alert("Id or Password not correct! Try again");
 			}
 		}
+
+function GetName(){
+      var uname = document.getElementId('nametxt').value;
+      document.getElementById('greetMsg'). innerHtml = uname;
+}
