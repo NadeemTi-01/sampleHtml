@@ -66,6 +66,8 @@ function Login(){
 		}
 
 function GetName(){
-      var uname = document.getElementId('nametxt').value;
+      var uname = document.getElementId('nameTxt').value;
       document.getElementById('greetMsg'). innerHTML = uname;
+
+      document.getElementById('nameDiv').display = 'none';
 }
