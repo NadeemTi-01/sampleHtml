@@ -66,8 +66,10 @@ function Login(){
 		}
 
 function GetName(){
-      var uname = document.getElementId('nameTxt').value;
-      document.getElementById('greetMsg'). innerHTML = uname;
+      var uname = document.getElementById('nameTxt').value;
+      var greet = "Welcome ";
+      var greetMsg = greet.concat(uname);
+      document.getElementById('greetMsg').innerHTML = greetMsg;
 
-      document.getElementById('nameDiv').display = 'none';
+      document.getElementById('nameDiv').style.display = 'none';
 }
