@@ -1,6 +1,6 @@
 .headingDiv {
 	border: 1px solid lightgrey;
-	width: 47%;
+	width: 67%;
 	padding-bottom: 15px;
 }
 
@@ -10,7 +10,7 @@
 
 .loginDiv {
 	border: 1px solid lightgrey;
-    width: 47%;
+    width: 67%;
     padding: 10px;
     height: 75px;
     padding-top: 20px;
@@ -19,12 +19,12 @@
 
 .secretKeyDiv {
 	border: 1px solid lightgrey;
-    width: 47%;
+    width: 67%;
     padding-bottom: 20px;
 }
 
 .secretNote {
 	text-align: left;
-    width: 50%;
+    width: 40%;
     color: red;
 }
