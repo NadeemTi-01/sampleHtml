@@ -1,0 +1,30 @@
+.headingDiv {
+	border: 1px solid lightgrey;
+	width: 47%;
+	padding-bottom: 15px;
+}
+
+.headerDiv :h2{
+	margin-bottom: 0px;
+}
+
+.loginDiv {
+	border: 1px solid lightgrey;
+    width: 47%;
+    padding: 10px;
+    height: 75px;
+    padding-top: 20px;
+    background: aliceblue;
+}
+
+.secretKeyDiv {
+	border: 1px solid lightgrey;
+    width: 47%;
+    padding-bottom: 20px;
+}
+
+.secretNote {
+	text-align: left;
+    width: 50%;
+    color: red;
+}
