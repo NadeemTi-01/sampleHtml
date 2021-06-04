@@ -97,6 +97,7 @@ function Login(){
 			document.getElementById('greetMsg').innerHTML = greetMsg;
 
 			document.getElementById('nameDiv').style.display = 'none';
+			document.getElementById('underConsDiv').style.display = 'block';
 		}
 
 		function ReloadPage(){

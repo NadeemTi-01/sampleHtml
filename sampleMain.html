@@ -2,19 +2,23 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<title>Sample Login</title>
 </head>
 <body>
-        <div>
+        <div class="container" align="center" style="margin-top: 7%">
           <div>
             <h2>Welcome to Sample Website</h2>
           </div>
           <div Id="nameDiv">
             <Input type="text" Id="nameTxt" placeholder="Your name please">
-            <Button onclick="GetName()">Enter</button>
+            <Button class="btn btn-primary" onclick="GetName()">Enter</button>
           </div>
           <div>
-           <h3 Id="greetMsg"></h3>
+           <h4 Id="greetMsg"></h4>
+          </div>
+          <div id="underConsDiv" style="display: none;">
+            <img src="undercons.png">
           </div>
         </div>
 
