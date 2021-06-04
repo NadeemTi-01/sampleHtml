@@ -24,9 +24,11 @@
 }
 
 .secretNote {
-	text-align: left;
-    width: 40%;
+	text-align: center;
+	list-style-position: inside;
+    /*width: 80%;*/
     color: red;
+
 }
 
 /*Modal CSS
@@ -50,7 +52,7 @@
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 30%;
+  width: 315px;
   height: 80px;
 }
 /* The Close Button */
