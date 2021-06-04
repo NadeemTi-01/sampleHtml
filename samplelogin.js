@@ -27,10 +27,10 @@ function ValidateSecretKey(){
 	if (secret == SecretKey) {
 		document.getElementById('isKeyValid').style.display = 'none';
 		document.getElementById('ShowSecretKey').style.display = 'block';
-                wrongKeyCounter = wrongKeyCounter;
-                document.getElementById('wrongKeyCount').style.display = 'none';
-                document.getElementById('secretKeyinput').style.display = 'none';
-                document.getElementById('clickHereText').style.display = 'none';
+		wrongKeyCounter = wrongKeyCounter;
+		document.getElementById('wrongKeyCount').style.display = 'none';
+		document.getElementById('secretKeyinput').style.display = 'none';
+		document.getElementById('clickHereText').style.display = 'none';
 	}
 	else
 	{
@@ -63,39 +63,49 @@ function ValidateSecretKey(){
 }
 
 function Login(){
-	
-			var Id = "nadeem";
-			var pass = "1234";
+	var Id = "nadeem";
+	var pass = "1234";
 
-			var userId = document.getElementById('Idtxt').value;
-			var userPass = document.getElementById('Passwordtxt').value;
+	var userId = document.getElementById('Idtxt').value;
+	var userPass = document.getElementById('Passwordtxt').value;
 
-			if (userId != "" && userPass != "") 
-			{
-				if (userId == Id && userPass == pass) 
-				{
-					location.href = "sampleMain.html";
-				}
-				else
-				{
-					alert("Id or Password not correct! Try again");
-				}
-			}
-			else
-			{
-				alert("Id or Password is blank!");
+	if (userId != "" && userPass != "") 
+	{
+		if (userId == Id && userPass == pass) 
+		{
+			location.href = "sampleMain.html";
+		}
+		else
+		{
+			document.getElementById('modalText').innerHTML = "Id or Password not correct! Try again";
+			document.getElementById('myModal').style.display = 'block';
+			//alert("Id or Password not correct! Try again");
+		}
+	}
+	else
+	{
+		document.getElementById('modalText').innerHTML = "Id or Password is blank!";
+		document.getElementById('myModal').style.display = 'block';
+				//alert("Id or Password is blank!");
 			}
 		}
 
-function GetName(){
-      var uname = document.getElementById('nameTxt').value;
-      var greet = "Welcome ";
-      var greetMsg = greet.concat(uname);
-      document.getElementById('greetMsg').innerHTML = greetMsg;
+		function GetName(){
+			var uname = document.getElementById('nameTxt').value;
+			var greet = "Welcome ";
+			var greetMsg = greet.concat(uname);
+			document.getElementById('greetMsg').innerHTML = greetMsg;
 
-      document.getElementById('nameDiv').style.display = 'none';
-}
+			document.getElementById('nameDiv').style.display = 'none';
+		}
 
-function ReloadPage(){
-	location.reload();
+		function ReloadPage(){
+			location.reload();
+		}
+
+// Get the <span> element that closes the modal
+	var closeBtn = document.getElementsByClassName("closeModal")[0];
+// When the user clicks on <span> (x), close the modal
+closeBtn.onclick = function() {
+  document.getElementById('myModal').style.display = 'none';
 }
