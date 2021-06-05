@@ -1,23 +1,38 @@
-
-function ShowSecretKeyInput()
-{
-	var secretKeyDisplay = document.getElementById('secretKeyinput').style.display;
+function ShowSecretKeyInputNote(){
+	var secretKeyDisplay = document.getElementById('secretKeyNotes').style.display;
 	if (secretKeyDisplay == 'none') {
-		document.getElementById('secretKeyinput').style.display = 'block';
-		document.getElementById('wrongKeyCount').style.display = 'block';
-		//document.getElementById('hideIcon').style.display = 'block';
+		document.getElementById('secretKeyNotes').style.display = 'block';
 		document.getElementById('clickHereText').innerHTML = "Hide";
 	}
 	else
 	{
-		document.getElementById('secretKeyinput').style.display = 'none';
-		document.getElementById('ShowSecretKey').style.display = 'none';
-		document.getElementById('isKeyValid').style.display = 'none';
-		document.getElementById('wrongKeyCount').style.display = 'none';
-		//document.getElementById('hideIcon').style.display = 'none';
 		document.getElementById('clickHereText').innerHTML = "Click here to know Login Id and Password";
-		document.getElementById('SecretKeyTxt').value = "";
+		document.getElementById('secretKeyNotes').style.display = 'none';
 	}
+}
+
+function ShowSecretKeyInput()
+{
+	//var secretKeyDisplay = document.getElementById('secretKeyinput').style.display;
+	//if (secretKeyDisplay == 'none') {
+		document.getElementById('secretKeyinput').style.display = 'block';
+		document.getElementById('wrongKeyCount').style.display = 'block';
+		document.getElementById('secretStartBtn').style.display = 'none';
+		document.getElementById('clickHereText').style.display = 'none';
+		clock();
+		//document.getElementById('hideIcon').style.display = 'block';
+//		document.getElementById('clickHereText').innerHTML = "Hide";
+//	}
+//	else
+//	{
+//		document.getElementById('secretKeyinput').style.display = 'none';
+//		document.getElementById('ShowSecretKey').style.display = 'none';
+//		document.getElementById('isKeyValid').style.display = 'none';
+//		document.getElementById('wrongKeyCount').style.display = 'none';
+//		//document.getElementById('hideIcon').style.display = 'none';
+//		document.getElementById('clickHereText').innerHTML = "Click here to know Login Id and Password";
+//		document.getElementById('SecretKeyTxt').value = "";
+//	}
 }
 
 var wrongKeyCounter = 2;
@@ -46,20 +61,26 @@ function ValidateSecretKey(){
 			document.getElementById('wrongKeyCount').style.color = 'white';
 		}
 		if (wrongKeyCounter == 0) {
-			document.getElementById('isKeyValid').innerHTML = "You exceeded maximum attempt. Refresh page to try again";
-			document.getElementById('loginForm').style.display = 'none';
-			document.getElementById('wrongKeyCount').style.display = 'none';
-			document.getElementById('clickHereText').style.display = 'none';
-			document.getElementById('secretKeyinput').style.display = 'none';
-			document.getElementById('refreshIcon').style.display = 'block';
-			document.getElementById('isKeyValid').style.background = 'red';
-			document.getElementById('isKeyValid').style.color = 'white';
+			EndAll("You exceeded maximum attempt. Refresh page to try again");
 		}
 		else
 		{
 			wrongKeyCounter--;
 		}
 	}
+}
+
+function EndAll(message){
+	document.getElementById('isKeyValid').innerHTML = message;
+	document.getElementById('loginForm').style.display = 'none';
+	document.getElementById('wrongKeyCount').style.display = 'none';
+	document.getElementById('clickHereText').style.display = 'none';
+	document.getElementById('secretKeyinput').style.display = 'none';
+	document.getElementById('secretKeyNotes').style.display = 'none';
+	document.getElementById('wrongKeyCount').style.display = 'none';
+	document.getElementById('refreshIcon').style.display = 'block';
+	document.getElementById('isKeyValid').style.background = 'red';
+	document.getElementById('isKeyValid').style.color = 'white';
 }
 
 function Login(){
@@ -90,7 +111,7 @@ function Login(){
 			}
 		}
 
-		function GetName(){
+	function GetName(){
 			var uname = document.getElementById('nameTxt').value;
 			var greet = "Welcome ";
 			var greetMsg = greet.concat(uname);
@@ -100,7 +121,7 @@ function Login(){
 			document.getElementById('underConsDiv').style.display = 'block';
 		}
 
-		function ReloadPage(){
+	function ReloadPage(){
 			location.reload();
 		}
 
@@ -110,3 +131,33 @@ function Login(){
 closeBtn.onclick = function() {
   document.getElementById('myModal').style.display = 'none';
 }
+
+
+var myTimer;
+   function clock() {
+     myTimer = setInterval(myClock, 1000);
+     var c = 10;
+
+     function myClock() {
+       document.getElementById("demo").innerHTML = --c;
+       if (wrongKeyCounter == 0) {
+       	clearInterval(myTimer);
+       	document.getElementById('wrongKeyCount').style.display = 'none';
+       }
+       else{
+       	if (c < 6) {
+       	document.getElementById('demo').style.color = 'orange';
+       }
+       if (c < 4) {
+       	document.getElementById('demo').style.background = 'red';
+       	document.getElementById('demo').style.color = 'white';
+       }
+       if (c == 0) {
+         clearInterval(myTimer);
+				 document.getElementById('secretKeyNotes').style.display = 'none';
+         document.getElementById("demo").innerHTML = "Oops! Time's Up!!! Try again";
+         EndAll("Time's Up");
+       }
+       }
+     }
+   }

@@ -25,28 +25,33 @@
 			<br><br><br>
 			<div>
 				<!--<span class="glyphicon glyphicon-eye-close" id="hideIcon" style="display: none;"></span>-->
-				<span id="clickHereText" onclick="ShowSecretKeyInput()" style="cursor: pointer; color: blue;">
+				<span id="clickHereText" onclick="ShowSecretKeyInputNote()" style="cursor: pointer; color: blue;">
 					Click here to know Login Id and Password
 				</span>
 			</div>
 			<br>
-			<div id="secretKeyinput" style="display: none;">
+			<div id="secretKeyNotes" style="display: none;">
 				<div class="secretNote">
 					<!--<p>Note :Before Entering Secret key read it.</p>-->
 					<!--<ul>
 						<li>You have only 3 attempts</li>
 						<li>Blank key will be wrong attempt</li>
-					<ul>-->
-						<span>You have only 3 attempts</span>
+						<ul>-->
+							<span>You have only 3 attempts</span><br>
+							<span>You have only 10 seconds</span>
 						</div>
 						<br>
-						<div>
-							<input type="Password" id="SecretKeyTxt" name="secretKeyInput" placeholder="Enter Secret Key">
-							<button class="btn btn-info btn-sm" onclick="ValidateSecretKey()">
-								<span class="glyphicon glyphicon-circle-arrow-right"></span> Enter
-							</button>
-						</div>
-					</div>
+				<button id="secretStartBtn" onclick="ShowSecretKeyInput()">Start</button>
+			</div>
+			<div><p id="demo" style="font-size:20px; width: fit-content; padding: 2px;"></p></div>
+			<div id="secretKeyinput" style="display: none;">
+				<div>
+					<input type="Password" id="SecretKeyTxt" name="secretKeyInput" placeholder="Enter Secret Key">
+					<button class="btn btn-info btn-sm" onclick="ValidateSecretKey()">
+						<span class="glyphicon glyphicon-circle-arrow-right"></span> Enter
+					</button>
+				</div>
+			</div>
 					<br>
 					<div>
 						<p style="color:white; background: green; display: none; width: fit-content; 
@@ -59,6 +64,9 @@
 				<p style="color: red; display: none; width: fit-content; padding: 2px;" id="isKeyValid">Wrong Secret Key</p>
 				<span class="glyphicon glyphicon-refresh" id="refreshIcon" onclick="ReloadPage()" style="cursor: pointer; display: none"></span>
 			</div>
+
+			<!--<button onclick="clock()">start</button>
+			<p id="demo"></p>-->
 
 			<!-- ---------Custom Modal-------------- -->
 			<!-- The Modal -->
@@ -75,8 +83,8 @@
 			<!----Footer----->
 			<div class="footer">
 				<span style="display:inline;" class="glyphicon glyphicon-copyright-mark"></span> Nadeem
-  				<p style="display:inline; margin-left: 10px;">All rights reserved</p>
-  				<p style="display: inline; margin-left: 10px;">Email at ndeem9575@gmail.com</i></p>
+				<p style="display:inline; margin-left: 10px;">All rights reserved</p>
+				<p style="display: inline; margin-left: 10px;">Email at ndeem9575@gmail.com</i></p>
 			</div>
 			<!--------------->
 		</div>
