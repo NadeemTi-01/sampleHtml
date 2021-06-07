@@ -41,7 +41,9 @@
 							<span>You have only 10 seconds</span>
 						</div>
 						<br>
-				<button id="secretStartBtn" onclick="ShowSecretKeyInput()">Start</button>
+				<button id="secretStartBtn" class="btn btn-warning" onclick="ShowSecretKeyInput()">
+					<span class="glyphicon glyphicon-chevron-right">Start
+				</button>
 			</div>
 			<div><p id="demo" style="font-size:20px; width: fit-content; padding: 2px;"></p></div>
 			<div id="secretKeyinput" style="display: none;">
@@ -61,7 +63,7 @@
 				<div id="wrongKeyCountDiv"> 
 					<p id="wrongKeyCount" style="width: fit-content; padding-left: 10px; padding-right: 10px;"></p> 
 				</div>
-				<p style="color: red; display: none; width: fit-content; padding: 2px;" id="isKeyValid">Wrong Secret Key</p>
+				<p id="isKeyValid" style="color: red; display: none; width: fit-content; padding: 2px;">Wrong Secret Key</p>
 				<span class="glyphicon glyphicon-refresh" id="refreshIcon" onclick="ReloadPage()" style="cursor: pointer; display: none"></span>
 			</div>
 

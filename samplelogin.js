@@ -19,6 +19,7 @@ function ShowSecretKeyInput()
 		document.getElementById('wrongKeyCount').style.display = 'block';
 		document.getElementById('secretStartBtn').style.display = 'none';
 		document.getElementById('clickHereText').style.display = 'none';
+		document.getElementById('demo').innerHTML = '10';
 		clock();
 		//document.getElementById('hideIcon').style.display = 'block';
 //		document.getElementById('clickHereText').innerHTML = "Hide";
@@ -62,6 +63,8 @@ function ValidateSecretKey(){
 		}
 		if (wrongKeyCounter == 0) {
 			EndAll("You exceeded maximum attempt. Refresh page to try again");
+			clearInterval(myTimer);
+			document.getElementById("demo").style.display = 'none';
 		}
 		else
 		{
@@ -111,7 +114,7 @@ function Login(){
 			}
 		}
 
-	function GetName(){
+		function GetName(){
 			var uname = document.getElementById('nameTxt').value;
 			var greet = "Welcome ";
 			var greetMsg = greet.concat(uname);
@@ -121,43 +124,42 @@ function Login(){
 			document.getElementById('underConsDiv').style.display = 'block';
 		}
 
-	function ReloadPage(){
+		function ReloadPage(){
 			location.reload();
 		}
 
 // Get the <span> element that closes the modal
-	var closeBtn = document.getElementsByClassName("closeModal")[0];
+var closeBtn = document.getElementsByClassName("closeModal")[0];
 // When the user clicks on <span> (x), close the modal
 closeBtn.onclick = function() {
-  document.getElementById('myModal').style.display = 'none';
+	document.getElementById('myModal').style.display = 'none';
 }
 
 
 var myTimer;
-   function clock() {
-     myTimer = setInterval(myClock, 1000);
-     var c = 10;
+function clock() {
+	myTimer = setInterval(myClock, 1000);
+	var c = 10;
 
-     function myClock() {
-       document.getElementById("demo").innerHTML = --c;
-       if (wrongKeyCounter == 0) {
-       	clearInterval(myTimer);
-       	document.getElementById('wrongKeyCount').style.display = 'none';
-       }
-       else{
-       	if (c < 6) {
-       	document.getElementById('demo').style.color = 'orange';
-       }
-       if (c < 4) {
-       	document.getElementById('demo').style.background = 'red';
-       	document.getElementById('demo').style.color = 'white';
-       }
-       if (c == 0) {
-         clearInterval(myTimer);
-				 document.getElementById('secretKeyNotes').style.display = 'none';
-         document.getElementById("demo").innerHTML = "Oops! Time's Up!!! Try again";
-         EndAll("Time's Up");
-       }
-       }
-     }
-   }
+	function myClock() {
+		document.getElementById("demo").innerHTML = --c;
+			if (c < 6) 
+			{
+				document.getElementById('demo').style.color = 'orange';
+			}
+			if (c < 4) 
+			{
+				document.getElementById('demo').style.background = 'red';
+				document.getElementById('demo').style.color = 'white';
+			}
+			if (c == 0) 
+			{
+				clearInterval(myTimer);
+				document.getElementById('secretKeyNotes').style.display = 'none';
+				document.getElementById("demo").innerHTML = "Oops! Time's Up!!! Try again";
+				EndAll("");
+				document.getElementById('isKeyValid').style.display = 'none';
+
+			}
+		}
+	}
