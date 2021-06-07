@@ -28,9 +28,11 @@
 .secretNote {
 	text-align: center;
 	list-style-position: inside;
-    /*width: 80%;*/
-    color: red;
-
+  /*width: 80%;*/
+  color: red;
+  background: lightgrey;
+  width: fit-content;
+  padding: 15px
 }
 
 /*Modal CSS
@@ -71,6 +73,18 @@
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+.countDownTimer {
+  display: none;
+  font-size: 20px;
+  color: white;
+  width: fit-content;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: green;
 }
 
 .footer {

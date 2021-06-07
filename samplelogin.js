@@ -2,7 +2,7 @@ function ShowSecretKeyInputNote(){
 	var secretKeyDisplay = document.getElementById('secretKeyNotes').style.display;
 	if (secretKeyDisplay == 'none') {
 		document.getElementById('secretKeyNotes').style.display = 'block';
-		document.getElementById('clickHereText').innerHTML = "Hide";
+		document.getElementById('clickHereText').innerHTML = "Cancel";
 	}
 	else
 	{
@@ -13,43 +13,29 @@ function ShowSecretKeyInputNote(){
 
 function ShowSecretKeyInput()
 {
-	//var secretKeyDisplay = document.getElementById('secretKeyinput').style.display;
-	//if (secretKeyDisplay == 'none') {
 		document.getElementById('secretKeyinput').style.display = 'block';
 		document.getElementById('wrongKeyCount').style.display = 'block';
+		document.getElementById('CountDownTxt').style.display = 'block';
 		document.getElementById('secretStartBtn').style.display = 'none';
 		document.getElementById('clickHereText').style.display = 'none';
-		document.getElementById('demo').innerHTML = '10';
+		document.getElementById('secretKeyNotes').style.display = 'none';
+		document.getElementById('CountDownTxt').innerHTML = '10';
 		clock();
-		//document.getElementById('hideIcon').style.display = 'block';
-//		document.getElementById('clickHereText').innerHTML = "Hide";
-//	}
-//	else
-//	{
-//		document.getElementById('secretKeyinput').style.display = 'none';
-//		document.getElementById('ShowSecretKey').style.display = 'none';
-//		document.getElementById('isKeyValid').style.display = 'none';
-//		document.getElementById('wrongKeyCount').style.display = 'none';
-//		//document.getElementById('hideIcon').style.display = 'none';
-//		document.getElementById('clickHereText').innerHTML = "Click here to know Login Id and Password";
-//		document.getElementById('SecretKeyTxt').value = "";
-//	}
 }
 
+var pauseTimer = false;
 var wrongKeyCounter = 2;
 function ValidateSecretKey(){
+	//pause = true;
 	var SecretKey = "Ab1100";
 	var secret = document.getElementById('SecretKeyTxt').value;
 	if (secret == SecretKey) {
-		document.getElementById('isKeyValid').style.display = 'none';
-		document.getElementById('ShowSecretKey').style.display = 'block';
-		wrongKeyCounter = wrongKeyCounter;
-		document.getElementById('wrongKeyCount').style.display = 'none';
-		document.getElementById('secretKeyinput').style.display = 'none';
-		document.getElementById('clickHereText').style.display = 'none';
+		pauseTimer = true;
+		DelayAfterCorrectSecretKey();
 	}
 	else
 	{
+		//pause = false;
 		document.getElementById('isKeyValid').style.display = 'block';
 		document.getElementById('wrongKeyCount').innerHTML = "Attempt remaining : " + wrongKeyCounter;
 		if (wrongKeyCounter == 2) {
@@ -64,7 +50,7 @@ function ValidateSecretKey(){
 		if (wrongKeyCounter == 0) {
 			EndAll("You exceeded maximum attempt. Refresh page to try again");
 			clearInterval(myTimer);
-			document.getElementById("demo").style.display = 'none';
+			document.getElementById("CountDownTxt").style.display = 'none';
 		}
 		else
 		{
@@ -72,6 +58,26 @@ function ValidateSecretKey(){
 		}
 	}
 }
+
+//var delayCounter = 2;
+var FakeProcessing;
+function DelayAfterCorrectSecretKey(){
+		document.getElementById('FakeProcessing').style.display = 'block';
+		FakeProcessing = setInterval(AfterSuccess, 2000);
+
+		function AfterSuccess(){
+		wrongKeyCounter = wrongKeyCounter;
+		clearInterval(myTimer);
+		document.getElementById('ShowSecretKey').innerHTML = 'Id - nadeem  :  Password - 1234';
+		document.getElementById('ShowSecretKey').style.display = 'block';
+		document.getElementById("CountDownTxt").style.display = 'none';
+		document.getElementById('isKeyValid').style.display = 'none';
+		document.getElementById('wrongKeyCount').style.display = 'none';
+		document.getElementById('secretKeyinput').style.display = 'none';
+		document.getElementById('clickHereText').style.display = 'none';
+		document.getElementById('FakeProcessing').style.display = 'none';
+		}
+	}
 
 function EndAll(message){
 	document.getElementById('isKeyValid').innerHTML = message;
@@ -103,7 +109,6 @@ function Login(){
 		{
 			document.getElementById('modalText').innerHTML = "Id or Password not correct! Try again";
 			document.getElementById('myModal').style.display = 'block';
-			//alert("Id or Password not correct! Try again");
 		}
 	}
 	else
@@ -139,27 +144,32 @@ closeBtn.onclick = function() {
 var myTimer;
 function clock() {
 	myTimer = setInterval(myClock, 1000);
-	var c = 10;
+	var count = 10;
 
 	function myClock() {
-		document.getElementById("demo").innerHTML = --c;
-			if (c < 6) 
+		if (!pauseTimer) {
+			count--;
+		}
+		
+		document.getElementById("CountDownTxt").innerHTML = count;
+			if (count < 6) 
 			{
-				document.getElementById('demo').style.color = 'orange';
+				document.getElementById('CountDownTxt').style.background = 'orange';
 			}
-			if (c < 4) 
+			if (count < 4) 
 			{
-				document.getElementById('demo').style.background = 'red';
-				document.getElementById('demo').style.color = 'white';
+				document.getElementById('CountDownTxt').style.background = 'red';
+				//document.getElementById('CountDownTxt').style.color = 'white';
 			}
-			if (c == 0) 
+			if (count == 0) 
 			{
 				clearInterval(myTimer);
-				document.getElementById('secretKeyNotes').style.display = 'none';
-				document.getElementById("demo").innerHTML = "Oops! Time's Up!!! Try again";
+				//document.getElementById('secretKeyNotes').style.display = 'none';
+				document.getElementById("CountDownTxt").innerHTML = "Oops! Time's Up!!! Try again";
 				EndAll("");
 				document.getElementById('isKeyValid').style.display = 'none';
 
 			}
 		}
 	}
+
