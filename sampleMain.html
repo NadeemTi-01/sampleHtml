@@ -3,26 +3,80 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="simplegame.css">
 	<title>Sample Login</title>
 </head>
 <body>
         <div class="container" align="center" style="margin-top: 7%">
-          <div>
-            <h2>Welcome to Sample Website</h2>
+          <div style="display:none;">
+            <div>
+              <h2>Welcome to Sample Website</h2>
+            </div>
+            <div Id="nameDiv">
+              <Input type="text" Id="nameTxt" placeholder="Your name please">
+              <Button class="btn btn-primary" onclick="GetName()">Enter</button>
+              </div>
+              <div>
+               <h4 Id="greetMsg"></h4>
+             </div>
+             <div id="underConsDiv" style="display: none;">
+              <img src="undercons.png">
+            </div>
           </div>
-          <div Id="nameDiv">
-            <Input type="text" Id="nameTxt" placeholder="Your name please">
-            <Button class="btn btn-primary" onclick="GetName()">Enter</button>
+
+          <!--=========Game Section========--->
+          <div id="GameBox">
+            <div id="GameRuleSection">
+              <p>Game Rules</p>
+              <div id="rulesDiv" style="list-style-position: inside; text-align: left; width: fit-content;">
+                <ul>
+                  <li>Easy Mode   : 30 seconds</li>
+                  <li>Medium Mode : 20 seconds</li>
+                  <li>Hard Mode   : 15 seconds</li>
+                  <li>Atlest 10 correct answers required</li>
+                </ul>
+              </div>
+            </div><br>
+            <div id="LevelSelectorSection">
+              <button id="easy" class="btn btn-success" onclick="StartGame(this.id)">Easy</button>
+              <button id="medium" class="btn btn-warning" onclick="StartGame(this.id)">Medium</button>
+              <button id="hard" class="btn btn-danger" onclick="StartGame(this.id)">Hard</button>
+            </div>
+           <!-- <button onclick="GenerateQuestion()">Generate QnA</button> -->
+           <div id="GameStarter">
+            <p id="GameStartCountDownText" class="gameCountDown"></p>
+           </div>
+            <div id="GamePlaySection" class="gamePlay">
+              <div id="TimerSection">
+                <span id="CountDownTxt" class="timerDisplay"></span>
+              </div>
+              <div id="ScoreSection" style="margin-top:10px">
+                <span style="font-size: 15px;">Score   <span id="ScoreTxt"></span> / 5</span>
+                <!--<span id="ScoreTxt" style="font-size: 15px;"></span>-->
+              </div>
+              <div id="GameWinSection">
+                <span id="winText" style="display:none;">Congrats! You Won</span>
+              </div>
+              <div id="QuestionSection" class="questionOptionBox">
+                <p id="QuestionTxt"></p>
+              </div>
+              <div id="OptionSection" class="outerBox">
+              </div>
+
+            </div>
           </div>
-          <div>
-           <h4 Id="greetMsg"></h4>
-          </div>
-          <div id="underConsDiv" style="display: none;">
-            <img src="undercons.png">
-          </div>
+          <!---=============================-->
+
+<!--<div class="outerBox">
+  <span class="innerBox">A</span>
+  <span class="innerBox">B</span>
+  <span class="innerBox" style="margin-top: 10px;">C</span>
+  <span class="innerBox" style="margin-top: 10px">D</span>
+</div>-->
+
         </div>
 
-<script src="samplelogin.js"></script>
+<script src="samplegame.js"></script>
 	
 </body>
 </html>

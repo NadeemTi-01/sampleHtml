@@ -1,0 +1,45 @@
+.outerBox {
+  width:60%;
+  border:1px solid grey;
+  background:skyblue;
+  padding: 10px;
+}
+.innerBox{
+  display: inline-block;
+  width: 40%;
+  height: 30px;
+  background: white;
+  cursor: pointer;
+}
+
+.gameCountDown {
+  font-size: 35px;
+  color: green;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
+
+.timerDisplay {
+  display:inline-block;
+  font-size: 18px;
+  color: white;
+  background-color: green;
+  padding-left: 10px;
+  padding-right: 10px
+}
+
+.questionOptionBox {
+  margin-top:15px;
+  width: 60%;
+  height: fit-content;
+  background: blanchedalmond;
+  font-size: 20px;
+}
+
+.gamePlay{
+  margin-top:20px;
+  width:70%;
+  display: none;
+}
+

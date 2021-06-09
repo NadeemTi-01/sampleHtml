@@ -119,15 +119,7 @@ function Login(){
 			}
 		}
 
-		function GetName(){
-			var uname = document.getElementById('nameTxt').value;
-			var greet = "Welcome ";
-			var greetMsg = greet.concat(uname);
-			document.getElementById('greetMsg').innerHTML = greetMsg;
-
-			document.getElementById('nameDiv').style.display = 'none';
-			document.getElementById('underConsDiv').style.display = 'block';
-		}
+		
 
 		function ReloadPage(){
 			location.reload();
