@@ -98,5 +98,19 @@
    text-align: center;
 }
 
+#myProgress {
+  width: 100%;
+  height: 15px;
+  background-color: #ddd;
+  text-align: center;
+  font-size: 11px;
+  border-radius: 10px;
+}
 
+#myBar {
+  width: 1%;
+  height: 15px;
+  background-color: #04AA6D;
+  border-radius: 10px;
+}
 

@@ -64,6 +64,7 @@ var FakeProcessing;
 function DelayAfterCorrectSecretKey(){
 		document.getElementById('FakeProcessing').style.display = 'block';
 		FakeProcessing = setInterval(AfterSuccess, 2000);
+		move();
 
 		function AfterSuccess(){
 		wrongKeyCounter = wrongKeyCounter;
@@ -164,4 +165,23 @@ function clock() {
 			}
 		}
 	}
-
+var i = 0;
+function move() {
+  if (i == 0) {
+    i = 1;
+    var elem = document.getElementById("myBar");
+    var width = 1;
+    var id = setInterval(frame, 10);
+    function frame() {
+      if (width >= 100) {
+        clearInterval(id);
+        i = 0;
+        document.getElementById('FakeProcessing').style.display = 'none';
+        document.getElementById('CorrectKeyMsg').style.display = 'block';
+      } else {
+        width=width+1;
+        elem.style.width = width + "%";
+      }
+    }
+  }
+}
