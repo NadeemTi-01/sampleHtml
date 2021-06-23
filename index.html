@@ -7,12 +7,23 @@
 	<link rel="stylesheet" type="text/css" href="simplelogin.css">
 </head>
 <body>
-	<div class="container" id="mainDiv" align="center" style="margin-top: 7%">
+	<h3 id="showStatus" align="center" style="display:none; margin-top: 7%;background: red; color:white;"></h3>
+	<!----------Landing Div------------->
+	<div id="landingDiv" align="center" style="margin-top: 7%;">
+		<input id="uname" type="text" name="name" placeholder="Your Name Please">
+		<button onclick="GetName()">Enter</button>
+		<br>
+		<span id="nameRequireMsg" style="display:none; color: red; font-size: smaller;">Enter Name</span>
+	</div>
+	<!----------Landing Div End--------->
+	<!----------Main Div------------->
+	<div id="mainDiv" class="container" align="center" style="margin-top: 7%; display:none;">
 		<div class="headingDiv">
 			<h2 style="margin-bottom: 0px; color: crimson;">Simple Login</h2>
 			<span style="font-size: 10px; color: forestgreen;">Only HTML CSS Javascript</span>
 		</div>
 		<div id="loginForm" class="loginDiv">
+			<h5 id="username"></h5>
 			<div class="form-group">
 				<input type="text" id="Idtxt" name="name" placeholder="Enter Id" style="margin-bottom: 2px;">
 				<input type="Password" id="Passwordtxt" name="name" placeholder="Enter Password" style="margin-bottom: 5px;">
@@ -25,6 +36,7 @@
 			<br>
 			<div>
 				<!--<span class="glyphicon glyphicon-eye-close" id="hideIcon" style="display: none;"></span>-->
+				<!--<span id="CancelIcons" class="glyphicon glyphicon-remove" style="display:none;"></span>-->
 				<span id="clickHereText" onclick="ShowSecretKeyInputNote()" style="cursor: pointer; color: blue;">
 					Click here to know Login Id and Password
 				</span>
@@ -52,9 +64,10 @@
 					<div id="myProgress">
   						<div id="myBar"></div>
 					</div>
-					<!--<br><button onclick="move()">Click Me</button> -->
 				</div>
-				<span id="CorrectKeyMsg" style="display:none;"><span class="glyphicon glyphicon-ok"></span> Correct Secret Key</span>
+				<span id="CorrectKeyMsg" style="display:none; color:green;">
+					<span class="glyphicon glyphicon-ok"></span> Correct Secret Key
+				</span>
 				<div style="margin-top:10px;">
 					<input type="Password" id="SecretKeyTxt" name="secretKeyInput" placeholder="Enter Secret Key">
 					<button class="btn btn-info btn-sm" onclick="ValidateSecretKey()">
@@ -74,10 +87,6 @@
 				<p id="isKeyValid" style="color: red; display: none; width: fit-content; padding: 2px;">Wrong Secret Key</p>
 				<span class="glyphicon glyphicon-refresh" id="refreshIcon" onclick="ReloadPage()" style="cursor: pointer; display: none"></span>
 			</div>
-
-			<!--<button onclick="clock()">start</button>
-			<p id="demo"></p>-->
-
 			<!-- ---------Custom Modal-------------- -->
 			<!-- The Modal -->
 			<div id="myModal" class="modal">
@@ -87,7 +96,6 @@
 					<span class="closeModal">&times;</span>
 					<p id="modalText" style="margin-top:8px;"></p>
 				</div>
-
 			</div>
 			<!----------------------------------------->
 			<!----Footer----->

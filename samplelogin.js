@@ -1,6 +1,54 @@
+window.onload = function() {
+  getUserName();
+};
+
+function getUserName(){
+	var retrievedObj = JSON.parse(window.localStorage.getItem("userAttemptDetail"));
+	if (retrievedObj != "" && retrievedObj != null) {
+		var recDate = new Date(retrievedObj.blockTime);
+		var thisDate = new Date();
+		var datediff = thisDate - recDate
+		var datediffMin = Math.floor(datediff / 1000 / 60);
+		var tryAfterMn = 30 - datediffMin;
+		
+		if (retrievedObj.wrongSecretKeyCount > 5) {
+			if (datediffMin > 30) {
+				document.getElementById('landingDiv').style.display = 'none';
+			  document.getElementById('mainDiv').style.display = 'block';
+			  retrievedObj.blockTime = null;
+			  retrievedObj.wrongSecretKeyCount = 0;
+			  window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedObj));
+			}
+			else
+			{
+				document.getElementById('landingDiv').style.display = 'none';
+				document.getElementById('mainDiv').style.display = 'none';
+				document.getElementById('showStatus').style.display = 'block';
+				document.getElementById('showStatus').innerHTML = 'Hi ' + retrievedObj.uname + ', You Entered Wrong Secret Key too many times. Try after ' + tryAfterMn + ' minutes';
+			}
+			
+		}
+		else{
+			document.getElementById('username').innerHTML = "Hi " + retrievedObj.uname;
+			document.getElementById('landingDiv').style.display = 'none';
+			document.getElementById('mainDiv').style.display = 'block';
+		}
+	}
+}
+
+function GetName(){
+	var uname = document.getElementById('uname').value;
+	var testObject = { 'uname': uname, 'wrongSecretKeyCount': 0, 'blockTime': null };
+	window.localStorage.setItem("userAttemptDetail", JSON.stringify(testObject));
+	document.getElementById('username').innerHTML = "Hi " + uname;
+	document.getElementById('landingDiv').style.display = 'none';
+	document.getElementById('mainDiv').style.display = 'block';
+}
+
 function ShowSecretKeyInputNote(){
 	var secretKeyDisplay = document.getElementById('secretKeyNotes').style.display;
 	if (secretKeyDisplay == 'none') {
+		//document.getElementById('CancelIcons').style.display = 'block';
 		document.getElementById('secretKeyNotes').style.display = 'block';
 		document.getElementById('clickHereText').innerHTML = "Cancel";
 	}
@@ -12,15 +60,15 @@ function ShowSecretKeyInputNote(){
 }
 
 function ShowSecretKeyInput()
-{
-		document.getElementById('secretKeyinput').style.display = 'block';
-		document.getElementById('wrongKeyCount').style.display = 'block';
-		document.getElementById('CountDownTxt').style.display = 'block';
-		document.getElementById('secretStartBtn').style.display = 'none';
-		document.getElementById('clickHereText').style.display = 'none';
-		document.getElementById('secretKeyNotes').style.display = 'none';
-		document.getElementById('CountDownTxt').innerHTML = '10';
-		clock();
+{	
+	document.getElementById('secretKeyinput').style.display = 'block';
+	document.getElementById('wrongKeyCount').style.display = 'block';
+	document.getElementById('CountDownTxt').style.display = 'block';
+	document.getElementById('secretStartBtn').style.display = 'none';
+	document.getElementById('clickHereText').style.display = 'none';
+	document.getElementById('secretKeyNotes').style.display = 'none';
+	document.getElementById('CountDownTxt').innerHTML = '10';
+	clock();
 }
 
 var pauseTimer = false;
@@ -35,7 +83,24 @@ function ValidateSecretKey(){
 	}
 	else
 	{
-		//pause = false;
+		var time = new Date();
+		console.log(time);
+		var retrievedTestObject = JSON.parse(window.localStorage.getItem('userAttemptDetail'));
+		console.log(retrievedTestObject);
+		if (retrievedTestObject.wrongSecretKeyCount == 5) {
+			retrievedTestObject.wrongSecretKeyCount++;
+			retrievedTestObject.blockTime = time;
+			window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedTestObject));
+			document.getElementById('landingDiv').style.display = 'none';
+			document.getElementById('mainDiv').style.display = 'none';
+			document.getElementById('showStatus').style.display = 'block';
+			document.getElementById('showStatus').innerHTML = 'Hi ' + retrievedObj.uname + ', You Entered Wrong Secret Key too many times. Try after 30 minutes';
+		}
+		else {
+			retrievedTestObject.wrongSecretKeyCount++;
+			window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedTestObject));
+		}
+		
 		document.getElementById('isKeyValid').style.display = 'block';
 		document.getElementById('wrongKeyCount').innerHTML = "Attempt remaining : " + wrongKeyCounter;
 		if (wrongKeyCounter == 2) {
