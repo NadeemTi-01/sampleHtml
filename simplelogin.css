@@ -114,3 +114,29 @@
   border-radius: 10px;
 }
 
+.wrongKeyCountSection{
+  width: fit-content;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: orange;
+  color: white;
+}
+
+.isKeyValidSection{
+  color: red;
+  display: none;
+  width: fit-content;
+  padding: 2px;
+}
+
+.showSecretKeySection{
+  color:white;
+  background: green;
+  display: none;
+  width: fit-content; 
+  padding: 3px;
+  border-radius: 12px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+

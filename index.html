@@ -49,64 +49,62 @@
 						<li>You have only 3 attempts</li>
 						<li>Blank key will be wrong attempt</li>
 						<ul>-->
-							<span>You have only 3 attempts</span><br>
-							<span>You have only 10 seconds</span>
+							<span>You have only 6 attempts</span><br>
+							<span>You have only 20 seconds</span>
 						</div>
 						<br>
-				<button id="secretStartBtn" class="btn btn-warning" onclick="ShowSecretKeyInput()">
-					<span class="glyphicon glyphicon-chevron-right">Start
-				</button>
-			</div>
-			<div><p id="CountDownTxt" class="countDownTimer"></p></div>
-			<div id="secretKeyinput" style="display: none;">
-				<!--<div id="FakeProcessing" style="display:none;">Validating Secret Key ...</div> -->
-				<div id="FakeProcessing" style="display: none; width: 20%;">
-					<div id="myProgress">
-  						<div id="myBar"></div>
+						<button id="secretStartBtn" class="btn btn-warning" onclick="ShowSecretKeyInput()">
+							<span class="glyphicon glyphicon-chevron-right">Start
+							</button>
+						</div>
+						<div><p id="CountDownTxt" class="countDownTimer"></p></div>
+						<span id="SecretKeyHideTimerDisplay" ></span>
+						<div id="secretKeyinput" style="display: none;">
+							<!--<div id="FakeProcessing" style="display:none;">Validating Secret Key ...</div> -->
+							<div id="FakeProcessing" style="display: none; width: 20%;">
+								<div id="myProgress">
+									<div id="myBar"></div>
+								</div>
+							</div>
+							<span id="CorrectKeyMsg" style="display:none; color:green;">
+								<span class="glyphicon glyphicon-ok"></span> Correct Secret Key
+							</span>
+							<div style="margin-top:10px;">
+								<input type="Password" id="SecretKeyTxt" name="secretKeyInput" placeholder="Enter Secret Key">
+								<button class="btn btn-info btn-sm" onclick="ValidateSecretKey()">
+									<span class="glyphicon glyphicon-circle-arrow-right"></span> Enter
+								</button>
+							</div>
+						</div>
+						<br>
+						<div>
+							<p class="showSecretKeySection" id="ShowSecretKey"></p>
+						</div>
+						<div id="wrongKeyCountDiv"> 
+							<p id="wrongKeyCount" class="wrongKeyCountSection"></p> 
+						</div>
+						<p id="isKeyValid" class="isKeyValidSection">Wrong Secret Key</p>
+						<span class="glyphicon glyphicon-refresh" id="refreshIcon" onclick="ReloadPage()" style="cursor: pointer; display: none"></span>
 					</div>
+					<!-- ---------Custom Modal-------------- -->
+					<!-- The Modal -->
+					<div id="myModal" class="modal">
+						<!-- Modal content -->
+						<div class="modal-content">
+							<span class="closeModal">&times;</span>
+							<p id="modalText" style="margin-top:8px;"></p>
+						</div>
+					</div>
+					<!----------------------------------------->
+					<!----Footer----->
+					<div class="footer">
+						<span style="display:inline;" class="glyphicon glyphicon-copyright-mark"></span> Nadeem
+						<p style="display:inline; margin-left: 10px;">All rights reserved</p>
+						<p style="display: inline; margin-left: 10px;">Email at ndeem9575@gmail.com</i></p>
+					</div>
+					<!--------------->
 				</div>
-				<span id="CorrectKeyMsg" style="display:none; color:green;">
-					<span class="glyphicon glyphicon-ok"></span> Correct Secret Key
-				</span>
-				<div style="margin-top:10px;">
-					<input type="Password" id="SecretKeyTxt" name="secretKeyInput" placeholder="Enter Secret Key">
-					<button class="btn btn-info btn-sm" onclick="ValidateSecretKey()">
-						<span class="glyphicon glyphicon-circle-arrow-right"></span> Enter
-					</button>
-				</div>
-			</div>
-					<br>
-					<div>
-						<p style="color:white; background: green; display: none; width: fit-content; 
-						padding: 3px;" id="ShowSecretKey">
-					</p>
-				</div>
-				<div id="wrongKeyCountDiv"> 
-					<p id="wrongKeyCount" style="width: fit-content; padding-left: 10px; padding-right: 10px;"></p> 
-				</div>
-				<p id="isKeyValid" style="color: red; display: none; width: fit-content; padding: 2px;">Wrong Secret Key</p>
-				<span class="glyphicon glyphicon-refresh" id="refreshIcon" onclick="ReloadPage()" style="cursor: pointer; display: none"></span>
-			</div>
-			<!-- ---------Custom Modal-------------- -->
-			<!-- The Modal -->
-			<div id="myModal" class="modal">
 
-				<!-- Modal content -->
-				<div class="modal-content">
-					<span class="closeModal">&times;</span>
-					<p id="modalText" style="margin-top:8px;"></p>
-				</div>
-			</div>
-			<!----------------------------------------->
-			<!----Footer----->
-			<div class="footer">
-				<span style="display:inline;" class="glyphicon glyphicon-copyright-mark"></span> Nadeem
-				<p style="display:inline; margin-left: 10px;">All rights reserved</p>
-				<p style="display: inline; margin-left: 10px;">Email at ndeem9575@gmail.com</i></p>
-			</div>
-			<!--------------->
-		</div>
-
-		<script src="samplelogin.js"></script>
-	</body>
-	</html>
+				<script src="samplelogin.js"></script>
+			</body>
+			</html>

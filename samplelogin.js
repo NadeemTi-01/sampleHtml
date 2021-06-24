@@ -11,12 +11,12 @@ function getUserName(){
 		var datediffMin = Math.floor(datediff / 1000 / 60);
 		var tryAfterMn = 30 - datediffMin;
 		
-		if (retrievedObj.wrongSecretKeyCount > 5) {
+		if (retrievedObj.attemptLeft < 1) {
 			if (datediffMin > 30) {
 				document.getElementById('landingDiv').style.display = 'none';
 			  document.getElementById('mainDiv').style.display = 'block';
 			  retrievedObj.blockTime = null;
-			  retrievedObj.wrongSecretKeyCount = 0;
+			  retrievedObj.attemptLeft = 6;
 			  window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedObj));
 			}
 			else
@@ -39,12 +39,10 @@ function getUserName(){
 function GetName(){
 	var uname = document.getElementById('uname').value;
 	if (uname == "") {
-		alert("Enter Name");
-		document.getElementById('modalText').innerHTML = "Enter Name";
-		document.getElementById('myModal').style.display = 'block';
+		document.getElementById('nameRequireMsg').style.display = 'block';
 	}
 	else{
-		var testObject = { 'uname': uname, 'wrongSecretKeyCount': 0, 'blockTime': null };
+		var testObject = { 'uname': uname, 'attemptLeft': 6, 'blockTime': null };
 	  window.localStorage.setItem("userAttemptDetail", JSON.stringify(testObject));
 		document.getElementById('username').innerHTML = getGreetingMsgByCurrentTime(uname);
 		document.getElementById('landingDiv').style.display = 'none';
@@ -74,28 +72,30 @@ function ShowSecretKeyInput()
 	document.getElementById('secretStartBtn').style.display = 'none';
 	document.getElementById('clickHereText').style.display = 'none';
 	document.getElementById('secretKeyNotes').style.display = 'none';
-	document.getElementById('CountDownTxt').innerHTML = '10';
+	document.getElementById('CountDownTxt').innerHTML = '20';
 	clock();
 }
 
 var pauseTimer = false;
-var wrongKeyCounter = 2;
+var wrongKeyCounter;
 function ValidateSecretKey(){
-	//pause = true;
+	var retrievedTestObject = JSON.parse(window.localStorage.getItem('userAttemptDetail'));
+	wrongKeyCounter = retrievedTestObject.attemptLeft;
 	var SecretKey = "Ab1100";
 	var secret = document.getElementById('SecretKeyTxt').value;
 	if (secret == SecretKey) {
 		pauseTimer = true;
 		DelayAfterCorrectSecretKey();
+		retrievedTestObject.attemptLeft = 6;
+		window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedTestObject));
+		//StartHideTimer();
 	}
 	else
 	{
+		wrongKeyCounter = wrongKeyCounter-1;
 		var time = new Date();
-		console.log(time);
-		var retrievedTestObject = JSON.parse(window.localStorage.getItem('userAttemptDetail'));
-		console.log(retrievedTestObject);
-		if (retrievedTestObject.wrongSecretKeyCount == 5) {
-			retrievedTestObject.wrongSecretKeyCount++;
+		if (retrievedTestObject.attemptLeft == 1) {
+			retrievedTestObject.attemptLeft--;
 			retrievedTestObject.blockTime = time;
 			window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedTestObject));
 			document.getElementById('landingDiv').style.display = 'none';
@@ -104,16 +104,12 @@ function ValidateSecretKey(){
 			document.getElementById('showStatus').innerHTML = 'Hi ' + retrievedTestObject.uname + ', You Entered Wrong Secret Key too many times. Try after 30 minutes';
 		}
 		else {
-			retrievedTestObject.wrongSecretKeyCount++;
+			retrievedTestObject.attemptLeft--;
 			window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedTestObject));
 		}
 		
 		document.getElementById('isKeyValid').style.display = 'block';
 		document.getElementById('wrongKeyCount').innerHTML = "Attempt remaining : " + wrongKeyCounter;
-		if (wrongKeyCounter == 2) {
-			document.getElementById('wrongKeyCount').style.background = 'orange';
-			document.getElementById('wrongKeyCount').style.color = 'white';
-		}
 		if (wrongKeyCounter == 1) {
 			//document.getElementById('wrongKeyCount').innerHTML = "Last Attempt";
 			document.getElementById('wrongKeyCount').style.background = 'red';
@@ -131,13 +127,12 @@ function ValidateSecretKey(){
 	}
 }
 
-//var delayCounter = 2;
+
 var FakeProcessing;
 function DelayAfterCorrectSecretKey(){
 		document.getElementById('FakeProcessing').style.display = 'block';
 		FakeProcessing = setInterval(AfterSuccess, 2000);
 		move();
-
 		function AfterSuccess(){
 		wrongKeyCounter = wrongKeyCounter;
 		clearInterval(myTimer);
@@ -165,7 +160,8 @@ function EndAll(message){
 	document.getElementById('isKeyValid').style.color = 'white';
 }
 
-function Login(){
+function Login()
+{
 	var Id = "nadeem";
 	var pass = "1234";
 
@@ -176,7 +172,10 @@ function Login(){
 	{
 		if (userId == Id && userPass == pass) 
 		{
-			location.href = "sampleMain.html";
+			var retrievedObj = JSON.parse(window.localStorage.getItem("userAttemptDetail"));
+			retrievedObj.attemptLeft = 6;
+			window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedObj));
+			window.location.href = "sampleMain.html";
 		}
 		else
 		{
@@ -188,10 +187,9 @@ function Login(){
 	{
 		document.getElementById('modalText').innerHTML = "Id or Password is blank!";
 		document.getElementById('myModal').style.display = 'block';
-				//alert("Id or Password is blank!");
-			}
-		}
-		
+	}
+}
+
 	function ReloadPage()
 	{
 		location.reload();
@@ -204,11 +202,25 @@ closeBtn.onclick = function() {
 	document.getElementById('myModal').style.display = 'none';
 }
 
+var hideTimer;
+function StartHideTimer() {
+	hideTimer = setInterval(myClock, 1000);
+	var tCount = 6; //using 5 to count till 5 seconds. use 1+.
+	function myClock() {
+		tCount--;
+		document.getElementById("SecretKeyHideTimerDisplay").innerHTML ='Credentials will hide in ' + tCount + ' secconds';
+		if (tCount == 0) 
+			{
+				clearInterval(hideTimer);
+				document.getElementById('ShowSecretKey').style.display = 'none';
+			}
+		}
+	}
 
 var myTimer;
 function clock() {
 	myTimer = setInterval(myClock, 1000);
-	var count = 10;
+	var count = 20;
 
 	function myClock() {
 		if (!pauseTimer) {
@@ -216,11 +228,11 @@ function clock() {
 		}
 		
 		document.getElementById("CountDownTxt").innerHTML = count;
-			if (count < 6) 
+			if (count < 15) 
 			{
 				document.getElementById('CountDownTxt').style.background = 'orange';
 			}
-			if (count < 4) 
+			if (count < 8) 
 			{
 				document.getElementById('CountDownTxt').style.background = 'red';
 				//document.getElementById('CountDownTxt').style.color = 'white';
@@ -244,12 +256,18 @@ function move() {
     var width = 1;
     var id = setInterval(frame, 10);
     function frame() {
-      if (width >= 100) {
+      if (width >= 100) 
+      {
         clearInterval(id);
         i = 0;
         document.getElementById('FakeProcessing').style.display = 'none';
+        document.getElementById('isKeyValid').style.display = 'none';
+        document.getElementById('wrongKeyCount').style.display = 'none';
+        document.getElementById('CountDownTxt').style.display = 'none';
         document.getElementById('CorrectKeyMsg').style.display = 'block';
-      } else {
+      } 
+      else 
+      {
         width=width+1;
         elem.style.width = width + "%";
       }
