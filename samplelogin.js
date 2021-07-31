@@ -24,9 +24,9 @@ function getUserName(){
 				document.getElementById('landingDiv').style.display = 'none';
 				document.getElementById('mainDiv').style.display = 'none';
 				document.getElementById('showStatus').style.display = 'block';
-				document.getElementById('showStatus').innerHTML = getGreetingMsgByCurrentTime(retrievedObj.uname) + ', You Entered Wrong Secret Key too many times. Try after ' + tryAfterMn + ' minutes';
+				//document.getElementById('showStatus').innerHTML = getGreetingMsgByCurrentTime(retrievedObj.uname) + ', You Entered Wrong Secret Key too many times. Try after ' + tryAfterMn + ' minutes';
+				document.getElementById('showStatus').innerHTML = 'Hi ' + retrievedObj.uname + ', You Entered Wrong Secret Key too many times. Try again after ' + tryAfterMn + ' minutes';
 			}
-			
 		}
 		else{
 			document.getElementById('username').innerHTML = getGreetingMsgByCurrentTime(retrievedObj.uname);
@@ -185,7 +185,15 @@ function Login()
 	}
 	else
 	{
-		document.getElementById('modalText').innerHTML = "Id or Password is blank!";
+		if (userId == "" && userPass != "") {
+			document.getElementById('modalText').innerHTML = "Id cannot be blank!";
+		}
+		else if (userId != "" && userPass == "") {
+			document.getElementById('modalText').innerHTML = "Password cannot be blank!";
+		}
+		else{
+			document.getElementById('modalText').innerHTML = "Id and Password cannot be blank!";
+		}
 		document.getElementById('myModal').style.display = 'block';
 	}
 }
@@ -195,11 +203,19 @@ function Login()
 		location.reload();
 	}
 
+// Commented Close Modal Function---------------------------------
 // Get the <span> element that closes the modal
-var closeBtn = document.getElementsByClassName("closeModal")[0];
+//var closeBtn = document.getElementsByClassName("closeModal")[0];
 // When the user clicks on <span> (x), close the modal
-closeBtn.onclick = function() {
-	document.getElementById('myModal').style.display = 'none';
+//closeBtn.onclick = function() {
+	//document.getElementById('myModal').style.display = 'none';
+//}
+//---------------------------------------------------------------
+
+// Close Modal function
+function CloseModal(modalId){
+	var modalIdToClose = modalId;
+	document.getElementById(modalId).style.display = 'none';
 }
 
 var hideTimer;
@@ -281,11 +297,35 @@ function getGreetingMsgByCurrentTime(name)
 	var curHr = today.getHours()
 	var greetMsg;
 	if (curHr < 12) {
-		greetMsg =  'Good morning ' + name;
+		greetMsg =  'Good Morning ' + name;
 	} else if (curHr < 18) {
-		greetMsg = 'Good afternoon ' + name;
+		greetMsg = 'Good Afternoon ' + name;
 	} else {
-		greetMsg = 'Good evening ' + name;
+		greetMsg = 'Good Evening ' + name;
 	}
 	return greetMsg;
 }
+
+function ShowResetKeyInput(){
+	document.getElementById('ResetModal').style.display = 'block';
+	//document.getElementById('ResetKeyTxt').style.display = 'block';
+	//document.getElementById('rstBtn').style.display = 'block';
+}
+//Key for reset
+var resetKey = "0010";
+function Reset(){
+	var key = document.getElementById('ResetKeyTxt').value;
+	if (key == resetKey) {
+		localStorage.clear();
+		ReloadPage();
+	}else{
+		document.getElementById('wrongResetKeyNotification').style.display = 'block';
+	}
+}
+
+//Saving data to txt file
+//var mydata = JSON.parse(file);
+//function GetData(){
+//	alert(mydata[0]);
+//}
+

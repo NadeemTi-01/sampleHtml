@@ -7,7 +7,10 @@
 	<link rel="stylesheet" type="text/css" href="simplelogin.css">
 </head>
 <body>
-	<h3 id="showStatus" align="center" style="display:none; margin-top: 7%;background: red; color:white;"></h3>
+	<!--<button onclick="GetData()">Get Data</button>-->
+	<div  align="center" class="topBanner">
+		<h3 id="showStatus" style="display:none; margin-top:10px;"></h3>
+	</div>
 	<!----------Landing Div------------->
 	<div id="landingDiv" align="center" style="margin-top: 7%;">
 		<input id="uname" type="text" name="name" placeholder="Your Name Please">
@@ -86,13 +89,25 @@
 						<p id="isKeyValid" class="isKeyValidSection">Wrong Secret Key</p>
 						<span class="glyphicon glyphicon-refresh" id="refreshIcon" onclick="ReloadPage()" style="cursor: pointer; display: none"></span>
 					</div>
-					<!-- ---------Custom Modal-------------- -->
+					<!-- ---------Custom Alert Modal-------------- -->
 					<!-- The Modal -->
 					<div id="myModal" class="modal">
 						<!-- Modal content -->
 						<div class="modal-content">
-							<span class="closeModal">&times;</span>
+							<span class="closeModal" onclick="CloseModal('myModal')">&times;</span>
 							<p id="modalText" style="margin-top:8px;"></p>
+						</div>
+					</div>
+					<!----------------------------------------->
+					<!-- ---------Reset Modal-------------- -->
+					<!-- The Modal -->
+					<div id="ResetModal" class="modal">
+						<!-- Modal content -->
+						<div id="modalContentDiv" class="modal-content">
+							<span class="closeModal" onclick="CloseModal('ResetModal')">&times;</span>
+							<input type="text" id="ResetKeyTxt" name="ResetKey" placeholder="Enter Reset Key">
+							<button onclick="Reset()" id="rstBtn">Enter</button>
+							<span id="wrongResetKeyNotification" style="display:none;">Wrong Key! Try again</span>
 						</div>
 					</div>
 					<!----------------------------------------->
@@ -101,6 +116,9 @@
 						<span style="display:inline;" class="glyphicon glyphicon-copyright-mark"></span> Nadeem
 						<p style="display:inline; margin-left: 10px;">All rights reserved</p>
 						<p style="display: inline; margin-left: 10px;">Email at ndeem9575@gmail.com</i></p>
+						<span onclick="ShowResetKeyInput()" style="cursor:pointer; font-size:smaller; margin-left: 10px;">
+							Reset
+						</span>
 					</div>
 					<!--------------->
 				</div>
