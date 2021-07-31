@@ -2,8 +2,9 @@ window.onload = function() {
   getUserName();
 };
 
+var retrievedObj;
 function getUserName(){
-	var retrievedObj = JSON.parse(window.localStorage.getItem("userAttemptDetail"));
+	retrievedObj = JSON.parse(window.localStorage.getItem("userAttemptDetail"));
 	if (retrievedObj != "" && retrievedObj != null) {
 		var recDate = new Date(retrievedObj.blockTime);
 		var thisDate = new Date();
@@ -79,33 +80,32 @@ function ShowSecretKeyInput()
 var pauseTimer = false;
 var wrongKeyCounter;
 function ValidateSecretKey(){
-	var retrievedTestObject = JSON.parse(window.localStorage.getItem('userAttemptDetail'));
-	wrongKeyCounter = retrievedTestObject.attemptLeft;
+	wrongKeyCounter = retrievedObj.attemptLeft;
 	var SecretKey = "Ab1100";
 	var secret = document.getElementById('SecretKeyTxt').value;
 	if (secret == SecretKey) {
 		pauseTimer = true;
 		DelayAfterCorrectSecretKey();
-		retrievedTestObject.attemptLeft = 6;
-		window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedTestObject));
+		retrievedObj.attemptLeft = 6;
+		window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedObj));
 		//StartHideTimer();
 	}
 	else
 	{
 		wrongKeyCounter = wrongKeyCounter-1;
 		var time = new Date();
-		if (retrievedTestObject.attemptLeft == 1) {
-			retrievedTestObject.attemptLeft--;
-			retrievedTestObject.blockTime = time;
-			window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedTestObject));
+		if (retrievedObj.attemptLeft == 1) {
+			retrievedObj.attemptLeft--;
+			retrievedObj.blockTime = time;
+			window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedObj));
 			document.getElementById('landingDiv').style.display = 'none';
 			document.getElementById('mainDiv').style.display = 'none';
 			document.getElementById('showStatus').style.display = 'block';
-			document.getElementById('showStatus').innerHTML = 'Hi ' + retrievedTestObject.uname + ', You Entered Wrong Secret Key too many times. Try after 30 minutes';
+			document.getElementById('showStatus').innerHTML = 'Hi ' + retrievedObj.uname + ', You Entered Wrong Secret Key too many times. Try after 30 minutes';
 		}
 		else {
-			retrievedTestObject.attemptLeft--;
-			window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedTestObject));
+			retrievedObj.attemptLeft--;
+			window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedObj));
 		}
 		
 		document.getElementById('isKeyValid').style.display = 'block';
@@ -126,7 +126,6 @@ function ValidateSecretKey(){
 		}
 	}
 }
-
 
 var FakeProcessing;
 function DelayAfterCorrectSecretKey(){
@@ -172,7 +171,6 @@ function Login()
 	{
 		if (userId == Id && userPass == pass) 
 		{
-			var retrievedObj = JSON.parse(window.localStorage.getItem("userAttemptDetail"));
 			retrievedObj.attemptLeft = 6;
 			window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedObj));
 			window.location.href = "sampleMain.html";
@@ -290,6 +288,16 @@ function move() {
   }
 }
 
+//function GetRemainingBlockTime(){
+//	if (retrievedObj != "" && retrievedObj != null) {
+//		var recDate = new Date(retrievedObj.resetBlockTime);
+//		var thisDate = new Date();
+//		var datediff = thisDate - recDate
+//		var datediffMin = Math.floor(datediff / 1000 / 60);
+//		tryAfterMn = 2 - datediffMin;
+//		return tryAfterMn
+//}
+
 function getGreetingMsgByCurrentTime(name)
 {
 	var today = new Date()
@@ -306,10 +314,11 @@ function getGreetingMsgByCurrentTime(name)
 }
 
 function ShowResetKeyInput(){
-	var retrievedTestObject = JSON.parse(window.localStorage.getItem('userAttemptDetail'));
-	wrongResetKeyCount = retrievedTestObject.resetKeyAttemptleft;
-		if (retrievedTestObject != "" && retrievedTestObject != null) {
-		var recDate = new Date(retrievedTestObject.resetBlockTime);
+	document.getElementById("ResetKeyTxt").value = "";
+	wrongResetKeyCount = retrievedObj.resetKeyAttemptleft;
+	//var blockTimeLeft = GetRemainingBlockTime();
+		if (retrievedObj != "" && retrievedObj != null) {
+		var recDate = new Date(retrievedObj.resetBlockTime);
 		var thisDate = new Date();
 		var datediff = thisDate - recDate
 		var datediffMin = Math.floor(datediff / 1000 / 60);
@@ -324,9 +333,9 @@ function ShowResetKeyInput(){
 			document.getElementById("rstBtn").disabled = false;
 			document.getElementById('ResetKeyTxt').focus();
 
-			retrievedTestObject.resetKeyAttemptleft = 5;
-			retrievedTestObject.resetBlockTime = null;
-			window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedTestObject));
+			retrievedObj.resetKeyAttemptleft = 5;
+			retrievedObj.resetBlockTime = null;
+			window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedObj));
 
 			document.getElementById("ResetKeyAttemptCounter").innerHTML = "Only 5 attempts";
 			document.getElementById("wrongResetKeyNotification").innerHTML = "";
@@ -348,51 +357,40 @@ var wrongResetKeyCount;
 var tryAfterMn;
 
 function Reset(){
-	var retrievedTestObject = JSON.parse(window.localStorage.getItem('userAttemptDetail'));
-	wrongResetKeyCount = retrievedTestObject.resetKeyAttemptleft;
+	wrongResetKeyCount = retrievedObj.resetKeyAttemptleft;
+	var key = document.getElementById('ResetKeyTxt').value;
+	if (key != "") {
+		if (key == resetKey) {
+			localStorage.clear();
+			ReloadPage();
+		}
+		else
+		{
+			if (wrongResetKeyCount == 1) {
+				var time = new Date();
+				wrongResetKeyCount --;
+				retrievedObj.resetKeyAttemptleft--;
+				retrievedObj.resetBlockTime = time;
+				window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedObj));
 
-
-
-	//if (wrongResetKeyCount == 0) 
-	//{
-	//		console.log("yes blocked " + tryAfterMn + " : " + datediffMin);
-	//}
-	//else
-	//{
-		var key = document.getElementById('ResetKeyTxt').value;
-			if (key != "") {
-				if (key == resetKey) {
-					localStorage.clear();
-					ReloadPage();
-				}
-				else
-				{
-					if (wrongResetKeyCount == 1) {
-						var time = new Date();
-						wrongResetKeyCount --;
-						retrievedTestObject.resetKeyAttemptleft--;
-						retrievedTestObject.resetBlockTime = time;
-						window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedTestObject));
-
-						document.getElementById("ResetKeyAttemptCounter").innerHTML = "No attempt left";
-						document.getElementById("ResetKeyTxt").disabled = true;
-						document.getElementById("rstBtn").disabled = true;
-						document.getElementById("wrongResetKeyNotification").innerHTML = "Too many wrong attempt!!Try later";
-					}
-					else
-					{
-						wrongResetKeyCount --;
-						retrievedTestObject.resetKeyAttemptleft--;
-						window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedTestObject));
-						document.getElementById("ResetKeyAttemptCounter").innerHTML = wrongResetKeyCount + " attempt(s) left";
-						document.getElementById("wrongResetKeyNotification").innerHTML = "Wrong Key! Try again";
-					}
-				}
+				document.getElementById("ResetKeyAttemptCounter").innerHTML = "No attempt left";
+				document.getElementById("ResetKeyTxt").disabled = true;
+				document.getElementById("rstBtn").disabled = true;
+				document.getElementById("wrongResetKeyNotification").innerHTML = "Too many wrong attempt!!Try later";
 			}
 			else
 			{
-				document.getElementById("wrongResetKeyNotification").innerHTML = "Please Enter Reset Key";
+				wrongResetKeyCount --;
+				retrievedObj.resetKeyAttemptleft--;
+				window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedObj));
+				document.getElementById("ResetKeyAttemptCounter").innerHTML = wrongResetKeyCount + " attempt(s) left";
+				document.getElementById("wrongResetKeyNotification").innerHTML = "Wrong Key! Try again";
 			}
-	//}
+		}
+	}
+	else
+	{
+		document.getElementById("wrongResetKeyNotification").innerHTML = "Please Enter Reset Key";
+	}
 }
 
