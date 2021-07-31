@@ -42,7 +42,7 @@ function GetName(){
 		document.getElementById('nameRequireMsg').style.display = 'block';
 	}
 	else{
-		var testObject = { 'uname': uname, 'attemptLeft': 6, 'blockTime': null };
+		var testObject = { 'uname': uname, 'attemptLeft': 6, 'blockTime': null, 'resetKeyAttemptleft' : 5, 'resetBlockTime': null };
 	  window.localStorage.setItem("userAttemptDetail", JSON.stringify(testObject));
 		document.getElementById('username').innerHTML = getGreetingMsgByCurrentTime(uname);
 		document.getElementById('landingDiv').style.display = 'none';
@@ -214,7 +214,6 @@ function Login()
 
 // Close Modal function
 function CloseModal(modalId){
-	var modalIdToClose = modalId;
 	document.getElementById(modalId).style.display = 'none';
 }
 
@@ -307,25 +306,93 @@ function getGreetingMsgByCurrentTime(name)
 }
 
 function ShowResetKeyInput(){
+	var retrievedTestObject = JSON.parse(window.localStorage.getItem('userAttemptDetail'));
+	wrongResetKeyCount = retrievedTestObject.resetKeyAttemptleft;
+		if (retrievedTestObject != "" && retrievedTestObject != null) {
+		var recDate = new Date(retrievedTestObject.resetBlockTime);
+		var thisDate = new Date();
+		var datediff = thisDate - recDate
+		var datediffMin = Math.floor(datediff / 1000 / 60);
+		tryAfterMn = 2 - datediffMin;
+	}
+
 	document.getElementById('ResetModal').style.display = 'block';
-	//document.getElementById('ResetKeyTxt').style.display = 'block';
-	//document.getElementById('rstBtn').style.display = 'block';
-}
-//Key for reset
-var resetKey = "0010";
-function Reset(){
-	var key = document.getElementById('ResetKeyTxt').value;
-	if (key == resetKey) {
-		localStorage.clear();
-		ReloadPage();
-	}else{
-		document.getElementById('wrongResetKeyNotification').style.display = 'block';
+	if (wrongResetKeyCount < 1) {
+		if (datediffMin >= 2) {
+			document.getElementById("ResetKeyTxt").value = "";
+			document.getElementById("ResetKeyTxt").disabled = false;
+			document.getElementById("rstBtn").disabled = false;
+			document.getElementById('ResetKeyTxt').focus();
+
+			retrievedTestObject.resetKeyAttemptleft = 5;
+			retrievedTestObject.resetBlockTime = null;
+			window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedTestObject));
+
+			document.getElementById("ResetKeyAttemptCounter").innerHTML = "Only 5 attempts";
+			document.getElementById("wrongResetKeyNotification").innerHTML = "";
+		}
+		else{
+			console.log("yes blocked " + tryAfterMn + " : " + datediffMin);
+			document.getElementById("ResetKeyTxt").value = "";
+			document.getElementById("ResetKeyTxt").disabled = true;
+			document.getElementById("rstBtn").disabled = true;
+			document.getElementById("ResetKeyAttemptCounter").innerHTML = "No attempt left";
+			document.getElementById("wrongResetKeyNotification").innerHTML = "Try After " + tryAfterMn + " minutes";
+		}
 	}
 }
 
-//Saving data to txt file
-//var mydata = JSON.parse(file);
-//function GetData(){
-//	alert(mydata[0]);
-//}
+//Key for reset
+var resetKey = "0010";
+var wrongResetKeyCount;
+var tryAfterMn;
+
+function Reset(){
+	var retrievedTestObject = JSON.parse(window.localStorage.getItem('userAttemptDetail'));
+	wrongResetKeyCount = retrievedTestObject.resetKeyAttemptleft;
+
+
+
+	//if (wrongResetKeyCount == 0) 
+	//{
+	//		console.log("yes blocked " + tryAfterMn + " : " + datediffMin);
+	//}
+	//else
+	//{
+		var key = document.getElementById('ResetKeyTxt').value;
+			if (key != "") {
+				if (key == resetKey) {
+					localStorage.clear();
+					ReloadPage();
+				}
+				else
+				{
+					if (wrongResetKeyCount == 1) {
+						var time = new Date();
+						wrongResetKeyCount --;
+						retrievedTestObject.resetKeyAttemptleft--;
+						retrievedTestObject.resetBlockTime = time;
+						window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedTestObject));
+
+						document.getElementById("ResetKeyAttemptCounter").innerHTML = "No attempt left";
+						document.getElementById("ResetKeyTxt").disabled = true;
+						document.getElementById("rstBtn").disabled = true;
+						document.getElementById("wrongResetKeyNotification").innerHTML = "Too many wrong attempt!!Try later";
+					}
+					else
+					{
+						wrongResetKeyCount --;
+						retrievedTestObject.resetKeyAttemptleft--;
+						window.localStorage.setItem("userAttemptDetail", JSON.stringify(retrievedTestObject));
+						document.getElementById("ResetKeyAttemptCounter").innerHTML = wrongResetKeyCount + " attempt(s) left";
+						document.getElementById("wrongResetKeyNotification").innerHTML = "Wrong Key! Try again";
+					}
+				}
+			}
+			else
+			{
+				document.getElementById("wrongResetKeyNotification").innerHTML = "Please Enter Reset Key";
+			}
+	//}
+}
 

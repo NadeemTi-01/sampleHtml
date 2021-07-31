@@ -103,11 +103,12 @@
 					<!-- The Modal -->
 					<div id="ResetModal" class="modal">
 						<!-- Modal content -->
-						<div id="modalContentDiv" class="modal-content">
-							<span class="closeModal" onclick="CloseModal('ResetModal')">&times;</span>
-							<input type="text" id="ResetKeyTxt" name="ResetKey" placeholder="Enter Reset Key">
-							<button onclick="Reset()" id="rstBtn">Enter</button>
-							<span id="wrongResetKeyNotification" style="display:none;">Wrong Key! Try again</span>
+						<div id="modalContentDiv" class="modal-content" style="padding-top: 2px;">
+							<span class="closeModal" onclick="CloseModal('ResetModal')" style="margin-top: 18px; margin-top: -11px;margin-right: -16px;">&times;</span>
+							<p id="ResetKeyAttemptCounter" style="margin:2px 0 4px">Only 5 attempts</p>
+							<input type="text" id="ResetKeyTxt" style="margin-top: -20px; color:black;" name="ResetKey" placeholder="Enter Reset Key">
+							<button onclick="Reset()" id="rstBtn" style="color:black;">Enter</button>
+							<span id="wrongResetKeyNotification" style="display:block;"></span>
 						</div>
 					</div>
 					<!----------------------------------------->
