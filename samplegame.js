@@ -5,8 +5,15 @@ function GetName(){
 			document.getElementById('greetMsg').innerHTML = greetMsg;
 
 			document.getElementById('nameDiv').style.display = 'none';
-			document.getElementById('underConsDiv').style.display = 'block';
+			//document.getElementById('underConsDiv').style.display = 'block';
+			document.getElementById('GameBox').style.display = 'block';
 		}
+
+window.onload = function() {
+	retrievedObj = JSON.parse(window.localStorage.getItem("userAttemptDetail"));
+	var loggedUserName = retrievedObj.uname;
+	document.getElementById('greetMsg').innerHTML = "Hi " + loggedUserName;
+}
 
 var selectedLevel;
 var correctAnswer;

@@ -5,6 +5,17 @@ window.onload = function() {
 var retrievedObj;
 function getUserName(){
 	retrievedObj = JSON.parse(window.localStorage.getItem("userAttemptDetail"));
+	if (retrievedObj != null) {
+		if (retrievedObj.resetKeyAttemptleft > 4) {
+			document.getElementById("ResetKeyAttemptCounter").innerHTML = "Only 5 attempts";
+		}else{
+			document.getElementById("ResetKeyAttemptCounter").innerHTML = retrievedObj.resetKeyAttemptleft + " attempt(s) left";
+		}
+	}
+	//else{
+	//	document.getElementById("ResetKeyAttemptCounter").innerHTML = "Only 5 attempts";
+	//}
+	
 	if (retrievedObj != "" && retrievedObj != null) {
 		var recDate = new Date(retrievedObj.blockTime);
 		var thisDate = new Date();
@@ -48,6 +59,12 @@ function GetName(){
 		document.getElementById('username').innerHTML = getGreetingMsgByCurrentTime(uname);
 		document.getElementById('landingDiv').style.display = 'none';
 		document.getElementById('mainDiv').style.display = 'block';
+		retrievedObj = JSON.parse(window.localStorage.getItem("userAttemptDetail"));
+		if (retrievedObj.resetKeyAttemptleft > 4) {
+			document.getElementById("ResetKeyAttemptCounter").innerHTML = "Only 5 attempts";
+		}else{
+			document.getElementById("ResetKeyAttemptCounter").innerHTML = retrievedObj.resetKeyAttemptleft + " attempt(s) left";
+		}
 	}
 }
 
@@ -315,7 +332,11 @@ function getGreetingMsgByCurrentTime(name)
 
 function ShowResetKeyInput(){
 	document.getElementById("ResetKeyTxt").value = "";
-	wrongResetKeyCount = retrievedObj.resetKeyAttemptleft;
+	document.getElementById("wrongResetKeyNotification").innerHTML = "";
+	if (retrievedObj != null) {
+		wrongResetKeyCount = retrievedObj.resetKeyAttemptleft;
+	}
+	
 	//var blockTimeLeft = GetRemainingBlockTime();
 		if (retrievedObj != "" && retrievedObj != null) {
 		var recDate = new Date(retrievedObj.resetBlockTime);
@@ -348,6 +369,9 @@ function ShowResetKeyInput(){
 			document.getElementById("ResetKeyAttemptCounter").innerHTML = "No attempt left";
 			document.getElementById("wrongResetKeyNotification").innerHTML = "Try After " + tryAfterMn + " minutes";
 		}
+	}
+	else{
+		document.getElementById('ResetKeyTxt').focus();
 	}
 }
 
