@@ -10,13 +10,13 @@
 
 .loginDiv {
 	border: 1px solid lightgrey;
-    width: 67%;
-    padding: 10px;
-    height: auto;
-    padding-top: 20px;
-    background: aliceblue;
-    border-top: none;
-    border-bottom: none;
+  width: 67%;
+  padding: 10px;
+  height: auto;
+  padding-top: 20px;
+  background: aliceblue;
+  border-top: none;
+  border-bottom: none;
 }
 
 .secretKeyDiv {

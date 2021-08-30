@@ -54,8 +54,18 @@ function GetName(){
 		document.getElementById('nameRequireMsg').style.display = 'block';
 	}
 	else{
-		var testObject = { 'uname': uname, 'attemptLeft': 6, 'blockTime': null, 'resetKeyAttemptleft' : 5, 'resetBlockTime': null };
+		var testObject = { 'uname': uname,
+											 'attemptLeft': 6, 
+											 'blockTime': null, 
+											 'resetKeyAttemptleft' : 5, 
+											 'resetBlockTime': null};
 	  window.localStorage.setItem("userAttemptDetail", JSON.stringify(testObject));
+	  //Storing Game related Info
+		var userGameScore = {'EasyLevelhighScore' : 0, 
+												 'MediumLevelHighScore' : 0,
+												 'HardLevelHighScore' : 0 };
+	  	window.localStorage.setItem("userGameScore", JSON.stringify(userGameScore));
+
 		document.getElementById('username').innerHTML = getGreetingMsgByCurrentTime(uname);
 		document.getElementById('landingDiv').style.display = 'none';
 		document.getElementById('mainDiv').style.display = 'block';

@@ -26,6 +26,14 @@
 
           <!--=========Game Section========--->
           <div id="GameBox" style="display:block;">
+            <div>
+              <label>User : </label>
+              <span id="userText"></span>
+              <div id="highScoreDis" style="display : none;">
+                <label>High Score : </label>
+              <span id="userHScore"></span>
+              </div>
+            </div>
             <h2>Welcome to Simple Number Game</h2>
             <div id="GameRuleSection">
               <p>Game Rules</p>
@@ -52,7 +60,8 @@
                 <span id="CountDownTxt" class="timerDisplay"></span>
               </div>
               <div id="ScoreSection" style="margin-top:10px">
-                <span style="font-size: 15px;">Score   <span id="ScoreTxt"></span> / 5</span>
+                <span id="newHgScrMsg" style="display:none;">Great, New High score</span><br>
+                <span style="font-size: 15px;">Score :<span id="ScoreTxt"></span> <!--/ 5</span>-->
                 <!--<span id="ScoreTxt" style="font-size: 15px;"></span>-->
               </div>
               <div id="GameWinSection">
